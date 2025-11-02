@@ -85,3 +85,4 @@ Always go from top to bottom, or coarser profiling to fine-grained one, when opt
 12. Detailed walkthrough of the memory profiling capabilities of NCU: https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s32089/
 13. Hopper specific features and tuning guide overview: https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s51119/
 14. (Overview of the basics of nsys and ncu) What the Profiler is Telling You: How to Get the Most Performance out of Your Hardware: https://www.nvidia.com/en-us/on-demand/session/gtcsj20-s22141/
+15. (Detailed walkthrough of the whole flow) Introduction to Kernel Performance Analysis with NVIDIA Nsight Compute: https://www.youtube.com/watch?v=fsC3QeZHM1U
