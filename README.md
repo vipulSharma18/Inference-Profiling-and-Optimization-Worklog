@@ -1,4 +1,6 @@
 # Inference-Profiling-Puzzles
+> Note: Project is in the ideation stage, with the creation of puzzles in progress.
+
 Explore commonly faced profiling scenarios and develop an intuition for how to break down profiling problems and find the bottleneck.
 
 **Puzzle 1**: TorchAO's `Float8WeightOnlyConfig` on RTX 4090 and RTX 5090 is much slower than the eager baseline.      
