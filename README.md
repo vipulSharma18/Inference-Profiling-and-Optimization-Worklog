@@ -1,5 +1,5 @@
 # Inference Profiling and Optimization Guide
-> Note: Project is in the ideation stage, with the creation of puzzles in progress.
+> Note: Project is in the ideation stage, with the creation of problems in progress.
 
 Explore commonly faced profiling scenarios and develop an intuition for how to break down profiling problems and find the bottleneck.
 
@@ -62,13 +62,13 @@ Batching of user requests as per the token budget and the type of operation (pre
 * Usage/load on the CUDA cores v/s Tensor Cores v/s Special Function Units. Avoiding contention between such compute resources.
 * Avoiding contention between memory resources like registers by using tensor cores and TMEM.
 
-## Puzzles (Curation in progress):
+## Problems (Curation in progress):
 
-**Puzzle 1**: TorchAO's `Float8WeightOnlyConfig` on RTX 4090 and RTX 5090 is much slower than the eager baseline.      
+**Problem 1**: TorchAO's `Float8WeightOnlyConfig` on RTX 4090 and RTX 5090 is much slower than the eager baseline.      
 
-**Puzzle 2**: More graphs, more problems: Understanding the impact of CUDAGraphs on GPU memory usage by profiling.      
+**Problem 2**: More graphs, more problems: Understanding the impact of CUDAGraphs on GPU memory usage by profiling.      
 
-**Puzzle 3**: What's my autotune up to?: Understand optimizations that the autotuner does by using GemLite's Triton GEMM kernels for RTX 4090 as an example.        
+**Problem 3**: What's my autotune up to?: Understand optimizations that the autotuner does by using GemLite's Triton GEMM kernels for RTX 4090 as an example.        
 
 ## References/Resources to learn the background:
 1. Nsight Systems Docs: https://docs.nvidia.com/nsight-systems/index.html
