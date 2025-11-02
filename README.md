@@ -80,3 +80,4 @@ Batching of user requests as per the token budget and the type of operation (pre
 7. (Disclaimer: Paid) Optimizing CUDA Machine Learning Codes With Nsight Profiling Tools: https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-03+V2
 8. (Disclaimer: Paid) Nsight Analysis System: Build Custom Python Analysis Scripts: https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-13+V1
 9. (Disclaimer: Paid) Find the Bottleneck: Optimize AI Pipelines With Nsight Systems: https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-14+V1
+10. https://github.com/Dao-AILab/quack/blob/main/media/2025-07-10-membound-sol.md
