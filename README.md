@@ -8,6 +8,60 @@ Explore commonly faced profiling scenarios and develop an intuition for how to b
 2. NVIDIA Nsight Systems
 3. NVIDIA Nsight Compute
 
+## Common bottlenecks:
+1. Coarse-Grained Bottlenecks: The GPU (Streaming Multiprocessors) getting "stalled" (spending time in idle stage) while waiting for its dependencies:
+    a. CPU/Host side operations required by a GPU kernel.
+    b. Input/Output from/to the GPU global memory.
+    c. Network data movement (CPU to GPU buffer copies) in case of multi-GPU computation.
+    e. Launch overhead for each GPU kernel.
+
+2. Fine-Grained Bottlenecks: Latency caused at the instruction level in the GPU kernel:
+    a. Use of atomic instructions to prevent contention at the same memory location.
+    b. Inter-SM communication via the global memory.
+    c. Quantization at the level of warps/wave due to warp divergence, or at the level of data tiles due to partially filled tiles. -> Causes low goodput from the SMs.
+    d. Shared memory bank conflicts: Different data being requested from the same memory bank location.
+    e. Register spilling to the local memory.
+    f. L2 cache misses.
+
+## Principled approach to inference optimization:
+
+Always go from top to bottom, or coarser profiling to fine-grained one, when optimizing inference workloads.
+
+### Model Serving/User Request Batching Level:
+Batching of user requests as per the token budget and the type of operation (prefill v/s decode).
+* Different dynamic batching algorithms.
+
+### Multi-GPU:
+* Types of parallelism within a model's forward pass given 1 input sample: EP, CP, SP, TP, PP.
+* Types of distributed Attention: Ring Attention, Ulysses-Attention.
+* Types of reductions across a network: Ring, Tree, Butterfly. 
+* Types of network interfaces: P2P, InfiniBand, GPU-RDMA, NVLink Switch (NVLS SHARP), PCIe.
+* Types of communication kernels: NCCL, NVSHMEM.
+
+### Single GPU:
+* Reducing CPU launch overhead by CUDA graphs and persistent kernels.
+* Overlapping CPU work with GPU kernels via async launching.
+* Cache hits: Global memory v/s L2 cache.
+* Coalesced memory accesses from global memory.
+* Async memory load from the global memory to overlap memory load with compute.
+* Zero-copy movement of data from CPU to GPU.
+
+### Cluster of Cooperative Thread Arrays (Multi-SM):
+* Communication latency across SMs. Avoid using Global memory and directly be able to access each other's shared memory.
+
+### Cooperative Thread Array (SM):
+* Shared memory bank conflicts and swizzling of data to avoid it.
+
+### Warp Scheduler level:
+* Warp specialization and the implicit management of the dependencies between warps by using warp scheduler.
+
+### Warp level:
+* Warp divergence, wave and tile quantization.
+
+### Thread level:
+* Usage/load on the CUDA cores v/s Tensor Cores v/s Special Function Units. Avoiding contention between such compute resources.
+* Avoiding contention between memory resources like registers by using tensor cores and TMEM.
+
 ## Puzzles (Curation in progress):
 
 **Puzzle 1**: TorchAO's `Float8WeightOnlyConfig` on RTX 4090 and RTX 5090 is much slower than the eager baseline.      
