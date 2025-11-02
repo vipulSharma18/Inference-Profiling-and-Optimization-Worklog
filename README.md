@@ -3,6 +3,15 @@
 
 Explore commonly faced profiling scenarios and develop an intuition for how to break down profiling problems and find the bottleneck.
 
+## Profilers used:
+1. Torch Profiler
+2. NVIDIA Nsight Systems
+3. NVIDIA Nsight Compute
+
+## Puzzles (Curation in progress):
+
 **Puzzle 1**: TorchAO's `Float8WeightOnlyConfig` on RTX 4090 and RTX 5090 is much slower than the eager baseline.      
+        
 **Puzzle 2**: More graphs, more problems: Understanding the impact of CUDAGraphs on GPU memory usage by profiling.      
-**Puzzle 3**: What's my autotune up to?: Understand optimizations that the autotuner does by using GemLite's Triton GEMM kernels for RTX 4090 as an example.
+
+**Puzzle 3**: What's my autotune up to?: Understand optimizations that the autotuner does by using GemLite's Triton GEMM kernels for RTX 4090 as an example.        
