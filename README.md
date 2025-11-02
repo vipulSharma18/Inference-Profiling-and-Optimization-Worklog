@@ -80,7 +80,8 @@ Always go from top to bottom, or coarser profiling to fine-grained one, when opt
 7. (Disclaimer: Paid) Optimizing CUDA Machine Learning Codes With Nsight Profiling Tools: https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-03+V2
 8. (Disclaimer: Paid) Nsight Analysis System: Build Custom Python Analysis Scripts: https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-13+V1
 9. (Disclaimer: Paid) Find the Bottleneck: Optimize AI Pipelines With Nsight Systems: https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-14+V1
-10. https://github.com/Dao-AILab/quack/blob/main/media/2025-07-10-membound-sol.md
+10. Different levels at which workload can be memory bound and how to resolve it: https://github.com/Dao-AILab/quack/blob/main/media/2025-07-10-membound-sol.md
 11. Understanding the memory chard and memory hierarchy by using Ampere as an example: https://developer.nvidia.com/gtc/2020/video/s21819-vid
 12. Detailed walkthrough of the memory profiling capabilities of NCU: https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s32089/
 13. Hopper specific features and tuning guide overview: https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s51119/
+14. (Overview of the basics of nsys and ncu) What the Profiler is Telling You: How to Get the Most Performance out of Your Hardware: https://www.nvidia.com/en-us/on-demand/session/gtcsj20-s22141/
