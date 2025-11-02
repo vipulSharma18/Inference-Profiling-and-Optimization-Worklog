@@ -9,26 +9,26 @@ Explore commonly faced profiling scenarios and develop an intuition for how to b
 3. NVIDIA Nsight Compute
 
 ## Common bottlenecks:
-1. Coarse-Grained Bottlenecks: The GPU (Streaming Multiprocessors) getting "stalled" (spending time in idle stage) while waiting for its dependencies:
-    a. CPU/Host side operations required by a GPU kernel.
-    b. Input/Output from/to the GPU global memory.
-    c. Network data movement (CPU to GPU buffer copies) in case of multi-GPU computation.
-    e. Launch overhead for each GPU kernel.
+1. Coarse-Grained Bottlenecks: The GPU (Streaming Multiprocessors) getting "stalled" (spending time in idle stage) while waiting for its dependencies:      
+    a. CPU/Host side operations required by a GPU kernel.       
+    b. Input/Output from/to the GPU global memory.      
+    c. Network data movement (CPU to GPU buffer copies) in case of multi-GPU computation.       
+    e. Launch overhead for each GPU kernel.     
 
-2. Fine-Grained Bottlenecks: Latency caused at the instruction level in the GPU kernel:
-    a. Use of atomic instructions to prevent contention at the same memory location.
-    b. Inter-SM communication via the global memory.
-    c. Quantization at the level of warps/wave due to warp divergence, or at the level of data tiles due to partially filled tiles. -> Causes low goodput from the SMs.
-    d. Shared memory bank conflicts: Different data being requested from the same memory bank location.
-    e. Register spilling to the local memory.
-    f. L2 cache misses.
+2. Fine-Grained Bottlenecks: Latency caused at the instruction level in the GPU kernel:     
+    a. Use of atomic instructions to prevent contention at the same memory location.        
+    b. Inter-SM communication via the global memory.        
+    c. Quantization at the level of warps/wave due to warp divergence, or at the level of data tiles due to partially filled tiles. -> Causes low goodput from the SMs.     
+    d. Shared memory bank conflicts: Different data being requested from the same memory bank location.     
+    e. Register spilling to the local memory.       
+    f. L2 cache misses.     
 
 ## Principled approach to inference optimization:
 
 Always go from top to bottom, or coarser profiling to fine-grained one, when optimizing inference workloads.
 
 ### Model Serving/User Request Batching Level:
-Batching of user requests as per the token budget and the type of operation (prefill v/s decode).
+* Batching of user requests as per the token budget and the type of operation (prefill v/s decode).
 * Different dynamic batching algorithms.
 
 ### Multi-GPU:
