@@ -49,6 +49,15 @@ jobs:
             ${{ runner.os }}-uv-torchao-float8-
             ${{ runner.os }}-uv-
 
+      - name: cleanup space on github vm
+        run: |
+          rm -rf /usr/share/dotnet \
+                /opt/ghc \
+                "$AGENT_TOOLSDIRECTORY"
+      
+          docker system prune -af || true
+          df -h
+
       - name: Build Docker image
         uses: docker/build-push-action@v5
         with:

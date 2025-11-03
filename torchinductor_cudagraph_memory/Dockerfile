@@ -7,10 +7,10 @@ ENV DEBIAN_FRONTEND=noninteractive \
     UV_CACHE_DIR=/root/.cache/uv
 
 # Install system dependencies including Python 3.12 from deadsnakes PPA
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
     && add-apt-repository ppa:deadsnakes/ppa -y \
-    && apt-get update && apt-get install -y \
+    && apt-get update && apt-get install -y --no-install-recommends \
     python3.12 \
     python3.12-dev \
     python3.12-venv \
@@ -33,7 +33,7 @@ RUN mkdir -p -m 755 /etc/apt/keyrings \
 && mkdir -p -m 755 /etc/apt/sources.list.d \
 && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
 && apt-get update \ 
-&& apt-get install -y gh \
+&& apt-get install -y --no-install-recommends gh \
 && rm -rf /var/lib/apt/lists/*
 
 # Install uv
