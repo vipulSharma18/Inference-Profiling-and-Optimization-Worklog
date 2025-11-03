@@ -21,6 +21,9 @@ dependencies = [
     "common_utils",
 ]
 
+[tool.uv]
+python-preference = "only-managed"
+
 [tool.uv.sources]
 common_utils = { path = "../common_utils" , editable = true }
 torch = { index = "pytorch-cu128" }

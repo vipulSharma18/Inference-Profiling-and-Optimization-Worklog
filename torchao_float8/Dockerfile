@@ -35,6 +35,7 @@ COPY torchao_float8/uv.lock /workspace/torchao_float8/
 
 # Install dependencies only (leverages cache)
 WORKDIR /workspace/torchao_float8
+RUN uv venv
 RUN uv sync --frozen --no-install-project
 
 # Copy the rest of the application code
