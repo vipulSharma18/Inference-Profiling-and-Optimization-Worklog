@@ -32,10 +32,12 @@ COPY common_utils /workspace/common_utils
 # Copy package files
 COPY torchao_float8/pyproject.toml /workspace/torchao_float8/
 COPY torchao_float8/uv.lock /workspace/torchao_float8/
+COPY torchao_float8/.python-version /workspace/torchao_float8/
 
 # Install dependencies only (leverages cache)
 WORKDIR /workspace/torchao_float8
-RUN uv venv
+RUN uv python install 3.12
+RUN uv venv --python 3.12
 RUN uv sync --frozen --no-install-project
 
 # Copy the rest of the application code

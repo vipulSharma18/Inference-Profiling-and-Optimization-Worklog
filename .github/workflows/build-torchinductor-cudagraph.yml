@@ -1,79 +1,88 @@
-# name: TorchInductor CUDA Graph Memory
+name: TorchInductor CUDA Graph Memory
 
-# on:
-#   push:
-#     branches:
-#       - main
-#     paths:
-#       - 'torchinductor_cudagraph_memory/**'
-#       - 'common_utils/**'
-#       - '.github/workflows/build-torchinductor-cudagraph.yml'
-#   pull_request:
-#     branches:
-#       - main
-#     paths:
-#       - 'torchinductor_cudagraph_memory/**'
-#       - 'common_utils/**'
-#       - '.github/workflows/build-torchinductor-cudagraph.yml'
-#   workflow_dispatch:
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'torchinductor_cudagraph_memory/**'
+      - 'common_utils/**'
+      - '.github/workflows/build-torchinductor-cudagraph.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'torchinductor_cudagraph_memory/**'
+      - 'common_utils/**'
+      - '.github/workflows/build-torchinductor-cudagraph.yml'
+  workflow_dispatch:
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-#       - name: Set up Docker Buildx
-#         uses: docker/setup-buildx-action@v3
-#         with:
-#           driver-opts: |
-#             image=moby/buildkit:latest
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: |
+            image=moby/buildkit:latest
 
-#       - name: Cache Docker layers
-#         uses: actions/cache@v4
-#         with:
-#           path: /tmp/.buildx-cache
-#           key: ${{ runner.os }}-buildx-torchinductor-cudagraph-${{ github.sha }}
-#           restore-keys: |
-#             ${{ runner.os }}-buildx-torchinductor-cudagraph-
-#             ${{ runner.os }}-buildx-
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-torchinductor-cudagraph-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-torchinductor-cudagraph-
+            ${{ runner.os }}-buildx-
 
-#       - name: Cache uv dependencies
-#         uses: actions/cache@v4
-#         with:
-#           path: ~/.cache/uv
-#           key: ${{ runner.os }}-uv-torchinductor-cudagraph-${{ hashFiles('torchinductor_cudagraph_memory/pyproject.toml') }}
-#           restore-keys: |
-#             ${{ runner.os }}-uv-torchinductor-cudagraph-
-#             ${{ runner.os }}-uv-
+      - name: Cache uv dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: ${{ runner.os }}-uv-torchinductor-cudagraph-${{ hashFiles('torchinductor_cudagraph_memory/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-torchinductor-cudagraph-
+            ${{ runner.os }}-uv-
 
-#       - name: Build Docker image
-#         uses: docker/build-push-action@v5
-#         with:
-#           context: .
-#           file: torchinductor_cudagraph_memory/Dockerfile
-#           push: false
-#           tags: torchinductor-cudagraph-memory:latest
-#           cache-from: type=local,src=/tmp/.buildx-cache
-#           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
-#           build-args: |
-#             BUILDKIT_INLINE_CACHE=1
+      - name: cleanup space on github vm
+        run: |
+          rm -rf /usr/share/dotnet \
+                /opt/ghc \
+                "$AGENT_TOOLSDIRECTORY"
+      
+          docker system prune -af || true
+          df -h
+            
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: torchinductor_cudagraph_memory/Dockerfile
+          push: false
+          tags: torchinductor-cudagraph-memory:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
 
-#       - name: Test Docker image
-#         run: |
-#           docker run --rm torchinductor-cudagraph-memory:latest uv --version
-#           docker run --rm torchinductor-cudagraph-memory:latest python3.12 --version
+      - name: Test Docker image
+        run: |
+          docker run --rm torchinductor-cudagraph-memory:latest uv --version
+          docker run --rm torchinductor-cudagraph-memory:latest python3.12 --version
 
-#       - name: Move cache
-#         run: |
-#           rm -rf /tmp/.buildx-cache
-#           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-#       - name: Clean up Docker resources
-#         if: always()
-#         run: |
-#           docker system prune -af --volumes
-#           df -h
+      - name: Clean up Docker resources
+        if: always()
+        run: |
+          docker system prune -af --volumes
+          df -h
 

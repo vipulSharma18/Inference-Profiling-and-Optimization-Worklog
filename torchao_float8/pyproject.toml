@@ -11,7 +11,7 @@ name = "torchao-float8"
 version = "0.1.0"
 description = "Reproducing the slowdown seen in torchao FP8 weights only config for llama3.1-8B inference."
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 authors = [
     { name = "Vipul Sharma", email = "vipuls181999@gmail.com" }
 ]
