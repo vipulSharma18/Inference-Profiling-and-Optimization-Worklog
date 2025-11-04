@@ -4,7 +4,9 @@ FROM nvidia/cuda:12.8.0-cudnn-devel-ubuntu22.04
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
-    UV_CACHE_DIR=/root/.cache/uv
+    UV_CACHE_DIR=/root/.cache/uv \
+    HF_HOME=/root/.cache/huggingface \
+    HF_HUB_ENABLE_HF_TRANSFER=1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
@@ -46,5 +48,7 @@ COPY torchinductor_cudagraph_memory /workspace/torchinductor_cudagraph_memory
 # Install the project itself
 RUN uv sync --frozen
 
+ENTRYPOINT [ "/workspace/torchinductor_cudagraph_memory/entrypoint.sh" ]
+
 # Set the default command
-CMD ["/bin/bash"]
+CMD ["/bin/bash", "-c", "echo '[dockerfile] Container Started' && sleep infinity"]
