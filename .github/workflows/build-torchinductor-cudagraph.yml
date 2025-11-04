@@ -1,4 +1,4 @@
-name: TorchInductor CUDA Graph Memory
+name: Problem 2 - TorchInductor CUDA Graph Memory
 
 on:
   push:
