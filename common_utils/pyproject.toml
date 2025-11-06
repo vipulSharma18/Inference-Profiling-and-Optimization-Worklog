@@ -20,6 +20,7 @@ dependencies = [
     "torchao",
     "huggingface_hub",
     "safetensors",
+    "requests",
 ]
 
 [tool.uv.sources]
