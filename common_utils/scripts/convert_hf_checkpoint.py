@@ -26,6 +26,7 @@ def convert_hf_checkpoint(
     ),
     model_name: Optional[str] = None,
 ) -> None:
+    checkpoint_dir = checkpoint_dir.expanduser()
     if model_name is None:
         model_name = checkpoint_dir.name
     config = ModelArgs.from_name(model_name)
