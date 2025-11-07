@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     wget \
     curl \
+    openssh-client \
+    openssh-server \
     && rm -rf /var/lib/apt/lists/*
 
 # Install uv
