@@ -9,7 +9,7 @@ python scripts/download.py --repo_id unsloth/Meta-Llama-3.1-8B || {
     echo "Continuing with next steps..."
 }
 
-python scripts/convert_hf_checkpoint.py --checkpoint_dir checkpoints/unsloth/Meta-Llama-3.1-8B || {
+python scripts/convert_hf_checkpoint.py --checkpoint_dir ~/checkpoints/unsloth/Meta-Llama-3.1-8B || {
     echo "ERROR: Failed to convert checkpoint at checkpoints/unsloth/Meta-Llama-3.1-8B"
     echo "Continuing with next steps..."
 }
@@ -36,7 +36,7 @@ echo "[entrypoint] Ensuring existence and listing contents of ~/.ssh/:"
 mkdir -p ~/.ssh/
 chmod 700 ~/.ssh
 echo "[entrypoint] manually adding public ssh keys in the ssh_authkeys file as a failcheck"
-cat /workspace/common_utils/scripts/ssh_authkeys >> ~/.ssh/authorized_keys
+cat /workspace/common_utils/scripts/ssh_publickeys >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 ls -l ~/.ssh/ || echo "[entrypoint] ~/.ssh/ does not exist, i.e., no user auth keys found"
 

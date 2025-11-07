@@ -22,7 +22,7 @@ from torchao._models.llama.model import ModelArgs
 def convert_hf_checkpoint(
     *,
     checkpoint_dir: Path = Path(
-        "checkpoints/meta-Transformer/Transformer-2-7b-chat-hf"
+        "~/checkpoints/meta-Transformer/Transformer-2-7b-chat-hf"
     ),
     model_name: Optional[str] = None,
 ) -> None:
@@ -142,7 +142,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--checkpoint_dir",
         type=Path,
-        default=Path("checkpoints/meta-llama/llama-2-7b-chat-hf"),
+        default=Path("~/checkpoints/meta-llama/llama-2-7b-chat-hf"),
     )
     parser.add_argument("--model_name", type=str, default=None)
 
