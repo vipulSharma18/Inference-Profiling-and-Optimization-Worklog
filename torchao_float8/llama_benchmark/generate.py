@@ -4,6 +4,7 @@
 
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
+import os
 import sys
 import time
 from datetime import datetime
@@ -315,7 +316,7 @@ def main(
     device_sync(device=device)  # MKG
     print(f"Time to load model: {time.time() - t0:.02f} seconds")
 
-    tokenizer = Tokenizer.from_file(tokenizer_path)
+    tokenizer = Tokenizer.from_file(str(tokenizer_path))
 
     encoded = encode_tokens(tokenizer, prompt, bos=True, device=device)
 
