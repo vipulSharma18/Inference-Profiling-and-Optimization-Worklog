@@ -11,6 +11,7 @@
 ```
 export CHECKPOINT_PATH=/root/checkpoints
 export MODEL_REPO=unsloth/Meta-Llama-3.1-8B
+export MODEL_REPO=unsloth/Llama-3.2-3B
 ```
 
 # Baseline
