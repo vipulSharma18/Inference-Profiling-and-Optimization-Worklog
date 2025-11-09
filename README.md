@@ -1,12 +1,18 @@
 # Inference Profiling and Optimization Guide
-Explore commonly faced profiling scenarios and develop an intuition for how to break down profiling problems and find the bottleneck.
+A collection of inference profiling problems that I've discovered during my work. This repo contains worklogs for each of those problems and is meant as a guide to help develop intuition for systematically analyzing profiling problems and finding the rootcause of slowdown.
 
-> Note: Project is in the ideation stage, with the creation of problems in progress.
+Each problem has a docker container for reproducibility of the environment and the inference slowdown.
 
-The project can be run by using docker containers to ensure complete reproducibility of the inference environment.
+        
+## Problems:
 
-[![Problem 1 - TorchAO Float8](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-torchao-float8.yml/badge.svg)](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-torchao-float8.yml)    [![Problem 2 - GemLite Autotune](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-gemlite-autotune.yml/badge.svg)](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-gemlite-autotune.yml)    [![Problem 3 - TorchInductor CUDA Graph Memory](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-torchinductor-cudagraph.yml/badge.svg)](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-torchinductor-cudagraph.yml)
+[![Problem 1 - TorchAO Float8](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-torchao-float8.yml/badge.svg)](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-torchao-float8.yml) (**In Progress**): TorchAO's `Float8WeightOnlyConfig` is much slower than the eager baseline, and has much higher peak VRAM usage than eager. It doesn't use the right float8 kernel for quantized inference (tested on torchao=0.13.0, RTX4090 and RTX5090).      
 
+[![Problem 2 - GemLite Autotune](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-gemlite-autotune.yml/badge.svg)](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-gemlite-autotune.yml) (**Not Started**): Understand optimizations that the autotuner does by using GemLite's Triton GEMM kernels for RTX 4090 as an example. An opportunity to use nsys and ncu trace difference functionalities, and to recognize different routes for kernel optimization that the autotuner might pick given different inputs and kernel parameters.        
+
+[![Problem 3 - TorchInductor CUDA Graph Memory](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-torchinductor-cudagraph.yml/badge.svg)](https://github.com/vipulSharma18/Inference-Profiling-and-Optimization-Guide/actions/workflows/build-torchinductor-cudagraph.yml) (**Not Started**): CUDAGraphs can lead to high GPU memory usage even without input duplication (for shape alignment) when used with quantized inference. This problem aims to understand the impact of CUDAGraphs on GPU memory usage and execution performance.      
+
+> Note: Details of the docker container and environment setup can be found in DOCKER_README.md.
 
 ## Profilers used:
 1. Torch Profiler
@@ -66,23 +72,6 @@ Always go from top to bottom, or coarser profiling to fine-grained one, when opt
 ### Thread level:
 * Usage/load on the CUDA cores v/s Tensor Cores v/s Special Function Units. Avoiding contention between such compute resources.
 * Avoiding contention between memory resources like registers by using tensor cores and TMEM.
-
-## Problems (Curation in progress):
-
-Run with docker:
-```
-docker pull ${problem_id}:main
-docker run --gpus all --cap-add=SYS_ADMIN -d ${problem_id}:main
-```
-
-**Problem 1**: TorchAO's `Float8WeightOnlyConfig` on RTX 4090 and RTX 5090 is much slower than the eager baseline.      
-`export problem_id=ghcr.io/vipulsharma18/inference-profiling-and-optimization-guide/torchao-float8`
-
-**Problem 2**: More graphs, more problems: Understanding the impact of CUDAGraphs on GPU memory usage by profiling.      
-`export problem_id=ghcr.io/vipulsharma18/inference-profiling-and-optimization-guide/torchinductor-cudagraph-memory`
-
-**Problem 3**: What's my autotune up to?: Understand optimizations that the autotuner does by using GemLite's Triton GEMM kernels for RTX 4090 as an example.        
-`export problem_id=ghcr.io/vipulsharma18/inference-profiling-and-optimization-guide/gemlite-autotune`
 
 ## References/Resources to learn the background:
 1. Nsight Systems Docs: https://docs.nvidia.com/nsight-systems/index.html
