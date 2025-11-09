@@ -34,6 +34,7 @@ echo "[entrypoint] entrypoint sshd checks complete"
 
 echo "[entrypoint] downloading and preparing models from huggingface"
 
+# llama-3.1-8B
 python scripts/download.py --repo_id unsloth/Meta-Llama-3.1-8B || {
     echo "ERROR: Failed to download model from unsloth/Meta-Llama-3.1-8B"
     echo "Continuing with next steps..."
@@ -41,5 +42,16 @@ python scripts/download.py --repo_id unsloth/Meta-Llama-3.1-8B || {
 
 python scripts/convert_hf_checkpoint.py --checkpoint_dir ~/checkpoints/unsloth/Meta-Llama-3.1-8B || {
     echo "ERROR: Failed to convert checkpoint at checkpoints/unsloth/Meta-Llama-3.1-8B"
+    echo "Continuing with next steps..."
+}
+
+# llama-3.2-3B
+python scripts/download.py --repo_id unsloth/Llama-3.2-3B || {
+    echo "ERROR: Failed to download model from unsloth/Llama-3.2-3B"
+    echo "Continuing with next steps..."
+}
+
+python scripts/convert_hf_checkpoint.py --checkpoint_dir ~/checkpoints/unsloth/Llama-3.2-3B || {
+    echo "ERROR: Failed to convert checkpoint at checkpoints/unsloth/Llama-3.2-3B"
     echo "Continuing with next steps..."
 }
