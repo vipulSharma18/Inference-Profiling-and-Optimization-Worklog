@@ -76,16 +76,4 @@ Always go from top to bottom, or coarser profiling to fine-grained one, when opt
 ## References/Resources to learn the background:
 1. Nsight Systems Docs: https://docs.nvidia.com/nsight-systems/index.html
 2. Nsight Compute Docs: https://docs.nvidia.com/nsight-compute/index.html
-3. CUDA Developer Tools Tutorials Playlist: https://www.youtube.com/playlist?list=PL5B692fm6--ukF8S7ul5NmceZhXLRv_lR
-4. (Note: NASA has good HPC tutorials) NASA HECC Nsight Systems: https://www.nas.nasa.gov/hecc/support/kb/performance-analysis-of-your-gpu-applications-with-nsight-systems_701.html
-5. NASA HECC Nsight Compute: https://www.nas.nasa.gov/hecc/support/kb/performance-analysis-of-your-gpu-cuda-kernels-with-nsight-compute-cli_706.html#url
-6. (ptrblck's short tutorial) https://dev-discuss.pytorch.org/t/using-nsight-systems-to-profile-gpu-workload/59
-7. (Disclaimer: Paid) Optimizing CUDA Machine Learning Codes With Nsight Profiling Tools: https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-03+V2
-8. (Disclaimer: Paid) Nsight Analysis System: Build Custom Python Analysis Scripts: https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-13+V1
-9. (Disclaimer: Paid) Find the Bottleneck: Optimize AI Pipelines With Nsight Systems: https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-14+V1
-10. Different levels at which workload can be memory bound and how to resolve it: https://github.com/Dao-AILab/quack/blob/main/media/2025-07-10-membound-sol.md
-11. Understanding the memory chard and memory hierarchy by using Ampere as an example: https://developer.nvidia.com/gtc/2020/video/s21819-vid
-12. Detailed walkthrough of the memory profiling capabilities of NCU: https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s32089/
-13. Hopper specific features and tuning guide overview: https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s51119/
-14. (Overview of the basics of nsys and ncu) What the Profiler is Telling You: How to Get the Most Performance out of Your Hardware: https://www.nvidia.com/en-us/on-demand/session/gtcsj20-s22141/
-15. (Detailed walkthrough of the whole flow) Introduction to Kernel Performance Analysis with NVIDIA Nsight Compute: https://www.youtube.com/watch?v=fsC3QeZHM1U
+3. (Detailed walkthrough of the whole flow) Introduction to Kernel Performance Analysis with NVIDIA Nsight Compute: https://www.youtube.com/watch?v=fsC3QeZHM1U
