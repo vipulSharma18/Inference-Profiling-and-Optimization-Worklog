@@ -1,4 +1,4 @@
-name: Problem 1 - TorchAO Float8
+name: Build
 
 on:
   push:
