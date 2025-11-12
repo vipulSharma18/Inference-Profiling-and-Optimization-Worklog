@@ -30,6 +30,8 @@ As a first, and possibly only step, we use the GPT-Fast benchmark provided by To
 
 ## Torch Memory Profile
 
+> **TLDR**: The dequantization of weights if FP8WeightsOnly config is not fused with GEMV computations. This leads to spike in GPU VRAM usage.
+
 The 0-th inference iteration is profiled using a CUDA memory snapshot. The snapshots are available at the following paths: `llama_benchmark/Meta-Llama-3.1-8B_None_torch_memory_profiler.pickle`, `llama_benchmark/Meta-Llama-3.1-8B_float8dq-tensor_torch_memory_profiler.pickle`, `llama_benchmark/Meta-Llama-3.1-8B_float8wo_torch_memory_profiler.pickle`.
 
 <div align="center">
