@@ -108,7 +108,7 @@ The last iteration of inference is profiled using PyTorch profiler. The inferenc
   <p><strong>Figure 8:</strong> Decode CUDAGraph Kernels</p>
 </div>
 
-The first thing we see is that the main thread (id 0) has many command buffer full events on its track. Also, there is almost no gap in the different CUDA graph launches and the kernels as can be seen in Figure 8. So, our GPU is definitely not stalled by our CPU and our decode isn't suffering from a kernel launch overhead as expected.
+The first thing we see is that the main thread (id 0) has many command buffer full events on its track. Also, there is almost no gap in the different CUDA graph launches and the kernels as can be seen in Figure 8. So, our GPU is definitely not stalled by our CPU and our decode isn't suffering from a kernel launch overhead as expected. On the other hand, our CPU is stalled by our GPU and that is resulting in these command buffer full events. We can also see that the first few decode passes completed in acceptable time, but after a few steps, the queue got full and the decode step started taking too much time.
 
 Figure 6 repeats what we saw in our memory analysis, i.e., the `dequantize_affine_float8` operation being the culprit. This time it's responsible for much of the slowdown seen in the inference. Both figures 7 and 8 show a `vectorized_elementwise_kernel` being responsible for the kernel-level slowdown, but it's not very meaningful to draw conclusions from.
 
