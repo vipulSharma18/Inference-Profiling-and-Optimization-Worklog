@@ -56,7 +56,7 @@ ARG GIT_COMMIT="main"
 WORKDIR /workspace
 
 # Clone the repository with sparse-checkout
-RUN git clone --no-checkout ${GIT_REPO} /workspace && \
+RUN GIT_LFS_SKIP_SMUDGE=1 git clone --no-checkout ${GIT_REPO} /workspace && \
     cd /workspace && \
     git sparse-checkout init --cone && \
     git sparse-checkout set torchinductor_cudagraph_memory common_utils && \

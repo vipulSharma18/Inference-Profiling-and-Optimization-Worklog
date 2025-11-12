@@ -55,8 +55,8 @@ ARG GIT_COMMIT="HEAD"
 # Set working directory
 WORKDIR /workspace
 
-# Clone the repository with sparse-checkout
-RUN git clone --no-checkout ${GIT_REPO} /workspace && \
+# Clone the repository with sparse-checkout (skip LFS files)
+RUN GIT_LFS_SKIP_SMUDGE=1 git clone --no-checkout ${GIT_REPO} /workspace && \
     cd /workspace && \
     git sparse-checkout init --cone && \
     git sparse-checkout set torchao_float8 common_utils && \
