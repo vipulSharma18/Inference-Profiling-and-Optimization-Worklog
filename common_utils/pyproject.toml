@@ -16,8 +16,8 @@ authors = [
     { name = "Vipul Sharma", email = "vipuls181999@gmail.com" }
 ]
 dependencies = [
-    "torch",
-    "torchao>=0.15.0dev",
+    "torch==2.8.0",
+    "torchao==0.13.0",
     "huggingface_hub",
     "hf_transfer",
     "safetensors",
@@ -26,14 +26,9 @@ dependencies = [
 
 [tool.uv.sources]
 torch = { index = "pytorch-cu128" }
-torchao = { index = "torchao-nightly" }
+torchao = { index = "pytorch-cu128" }
 
 [[tool.uv.index]]
 name = "pytorch-cu128"
 url = "https://download.pytorch.org/whl/cu128"
-explicit = true
-
-[[tool.uv.index]]
-name = "torchao-nightly"
-url = "https://download.pytorch.org/whl/nightly/cu128"
 explicit = true

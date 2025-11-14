@@ -16,27 +16,35 @@ authors = [
     { name = "Vipul Sharma", email = "vipuls181999@gmail.com" }
 ]
 dependencies = [
-    "torch==2.8.0",
-    "torchao>=0.15.0dev",
     "tokenizers",
     "numpy",
-    "common_utils",
+]
+
+[dependency-groups]
+slow = [
+    "torch==2.8.0",
+    "torchao==0.13.0",
+]
+fast = [
+    "torch==2.9.0",
+    "torchao==0.14.1",
 ]
 
 [tool.uv]
 python-preference = "only-managed"
+default-groups = ["slow"]
+conflicts = [
+    [
+      { group = "slow" },
+      { group = "fast" },
+    ],
+]
 
 [tool.uv.sources]
-common_utils = { path = "../common_utils" , editable = true }
 torch = { index = "pytorch-cu128" }
-torchao = { index = "torchao-nightly" }
+torchao = { index = "pytorch-cu128" }
 
 [[tool.uv.index]]
 name = "pytorch-cu128"
 url = "https://download.pytorch.org/whl/cu128"
-explicit = true
-
-[[tool.uv.index]]
-name = "torchao-nightly"
-url = "https://download.pytorch.org/whl/nightly/cu128"
 explicit = true

@@ -17,9 +17,7 @@ authors = [
 ]
 dependencies = [
     "torch==2.8.0",
-    "torchao>=0.15.0dev",
     "gemlite>=0.5.1",
-    "common_utils",
 ]
 
 [tool.uv]
@@ -27,16 +25,9 @@ python-preference = "only-managed"
 
 [tool.uv.sources]
 gemlite = { git = "https://github.com/dropbox/gemlite.git" }
-common_utils = { path = "../common_utils" , editable = true }
 torch = { index = "pytorch-cu128" }
-torchao = { index = "torchao-nightly" }
 
 [[tool.uv.index]]
 name = "pytorch-cu128"
 url = "https://download.pytorch.org/whl/cu128"
-explicit = true
-
-[[tool.uv.index]]
-name = "torchao-nightly"
-url = "https://download.pytorch.org/whl/nightly/cu128"
 explicit = true
